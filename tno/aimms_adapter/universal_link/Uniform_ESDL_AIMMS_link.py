@@ -62,20 +62,27 @@ class UniversalLink:
     Main function that loads esh + file from database, runs the core function parse_esdl and catches errors
     '''
 
-    def esdl_to_db(self, esdl_filename) -> Tuple[bool, str]:
+    def esdl_to_db(self, esdl_filename2) -> Tuple[bool, str]:
         """
         :param esdl_filename: file to convert to database
         :return: tuple (success (True/False), error message)
         """
+        global statusNumber
+        statusNumber=0
+        global esdl_filename
+        esdl_filename=esdl_filename2
+        print('ESDL:', "...", esdl_filename)
         print(f'Processing ESDL...')
         esh = EnergySystemHandler()
         try:
             esh.load_file(esdl_filename)
             print(f'Parsing ESDL...')
             self.parse_esdl(esh)
-            return True, 'Ok'
+            statusNumber=1
         except Exception as e:
-            return False, str(e)
+            print(e,esdl_filename)
+            return False, str(e)+f", occured in filename: {esdl_filename}"
+        return True, 'Ok'
 
     '''
     Auxiliary function that reads from (newly created) sql file on the database using pandas
