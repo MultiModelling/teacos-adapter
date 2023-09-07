@@ -62,7 +62,7 @@ class UniversalLink:
     Main function that loads esh + file from database, runs the core function parse_esdl and catches errors
     '''
 
-    def esdl_to_db(self, esdl_filename_list) -> Tuple[bool, str]:
+    def esdl_to_db(self, esdl_filename2) -> Tuple[bool, str]:
         """
         :param esdl_filename: file to convert to database
         :return: tuple (success (True/False), error message)
@@ -70,7 +70,7 @@ class UniversalLink:
         global statusNumber
         statusNumber=0
         # for esdl_filename2 in esdl_filename_list:
-        esdl_filename2=esdl_filename_list
+        # esdl_filename2=esdl_filename_list
         global esdl_filename
         esdl_filename=esdl_filename2
         print('ESDL:', "...", esdl_filename)
@@ -86,6 +86,29 @@ class UniversalLink:
             return False, str(e)+f", occured in filename: {esdl_filename}"
         return True, 'Ok'
     
+    def esdl_str_to_db(self, esdl_str) -> Tuple[bool, str]:
+        """
+        :param esdl_filename: file to convert to database
+        :return: tuple (success (True/False), error message)
+        """
+        global statusNumber
+        statusNumber=0
+        # for esdl_filename2 in esdl_filename_list:
+        # esdl_filename2=esdl_filename_list
+        global esdl_filename
+        esdl_filename=esdl_str
+        print('ESDL:', "...", esdl_filename)
+        print(f'Processing ESDL...')
+        esh = EnergySystemHandler()
+        try:
+            esh.load_from_string(esdl_str)
+            print(f'Parsing ESDL...')
+            self.parse_esdl(esh)
+            statusNumber=1
+        except Exception as e:
+            print(e,esdl_filename)
+            return False, str(e)+f", occured in filename: {esdl_filename}"
+        return True, 'Ok'
 
     '''
     Auxiliary function that reads from (newly created) sql file on the database using pandas
