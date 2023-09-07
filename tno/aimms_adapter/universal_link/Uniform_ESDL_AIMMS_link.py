@@ -105,6 +105,7 @@ class UniversalLink:
             print(f'Parsing ESDL...')
             self.parse_esdl(esh)
             statusNumber=1
+            statusNumber=1
         except Exception as e:
             print(e,esdl_filename)
             return False, str(e)+f", occured in filename: {esdl_filename}"
