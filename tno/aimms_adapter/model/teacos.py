@@ -89,6 +89,7 @@ class TEACOS(Model):
                        "DB_Host": EnvSettings.db_host(), "DB_Name": EnvSettings.db_name(),
                        "DB_User": EnvSettings.db_user(), "DB_Password": EnvSettings.db_password()}
 
+        print("Connecting to TEACOS at", EnvSettings.teacos_API_url())
         teacos1 = requests.post(EnvSettings.teacos_API_url(), json=Credentials)
 
         if (teacos1.status_code != 200):

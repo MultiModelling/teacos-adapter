@@ -27,7 +27,7 @@ import time
 
 class SQLESDL:
     def __init__(self, host: str, database: str, user: str, password: str):
-        print("ESDL-AIMMS Universal link starting...")
+        print("AIMMS->ESDL Universal link starting...")
         # use sqlAlchemy to connect to (any) database, instead of using direct connection
         # this removes the pandas warning
 
@@ -39,7 +39,7 @@ class SQLESDL:
         self.cursor = self.conn.cursor()
         start = datetime.datetime.now()
         done = False
-        counter = 0;
+        counter = 0
         while done == False:
             counter += 1
             self.log_table = self.get_sql('SELECT * FROM ' + self.database_name + '.log_table;')
