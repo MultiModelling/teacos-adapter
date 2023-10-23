@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.8"
 
 services:
   teacos-mysql:
@@ -14,13 +14,14 @@ services:
 
   adminer:
     image: adminer
-    restart: always
     ports:
-      - 8081:8081
+      - "8081:8080"
 
 volumes:
   mysql-storage:
 
 networks:
   mmvib-net:
+    driver: bridge
     external: true
+    name: mmvib-net

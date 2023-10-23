@@ -96,8 +96,10 @@ class Model(ABC):
 
         bucket = path.split("/")[0]
         rest_of_path = "/".join(path.split("/")[1:])
+        logger.info(f"bucket: {bucket}, rest of the path: {rest_of_path}")
 
         response = self.minio_client.get_object(bucket, rest_of_path)
+        logger.info(f"bucket: {bucket}, rest of the path: {rest_of_path}")
         if response:
             logger.info(f"Minio response: {response}")
             return response.data

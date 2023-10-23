@@ -57,7 +57,7 @@ class TEACOS(Model):
                         reason=f"Error retrieving {config.input_esdl_file_path} from Minio"
                     )
             except S3Error as e:
-                logger.error(f"Error retrieving {config.input_esdl_file_path} from Minio")
+                logger.exception(f"Error retrieving {config.input_esdl_file_path} from Minio")
                 return ModelRunInfo(
                     model_run_id=model_run_id,
                     state=ModelState.ERROR,

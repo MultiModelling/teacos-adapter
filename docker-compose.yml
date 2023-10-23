@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.8"
 
 services:
   mmvib-teacos-adapter:
@@ -15,9 +15,9 @@ services:
       - mmvib-net
 
   teacos-mysql:
-    image: mysql:latest
+    image: mysql:8.0-debian
     networks:
-     - mmvib-net
+      - mmvib-net
     volumes:
       - mysql-storage:/var/lib/mysql
     environment:
@@ -26,14 +26,17 @@ services:
       MYSQL_PASSWORD: password
 
   adminer:
-    image: adminer
-    restart: always
+    image: adminer:4-standalone
     ports:
-      - 8081:8081
+      - "8081:8080"
+    networks:
+      - mmvib-net
 
 volumes:
   mysql-storage:
 
 networks:
   mmvib-net:
+    driver: bridge
     external: true
+    name: mmvib-net
