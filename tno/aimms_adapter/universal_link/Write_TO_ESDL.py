@@ -105,7 +105,7 @@ class SQLESDL:
 
     def _generate_esdl(self, esh, context={'User': 'Test'}):
         if hasattr(self, 'Producers'):
-            dfProducers = self.Producers
+            dfProducers = self.Results_Producers
             Producers = esh.get_all_instances_of_type(esdl.Producer)
             for p in Producers:
                 p.power = float(dfProducers.loc[dfProducers["id"] == p.id].power)
@@ -156,7 +156,7 @@ class SQLESDL:
                 proj.append(a.id)
 
         if hasattr(self, 'Assets'):
-            df = self.Assets
+            df = self.Results_Assets
             df = df[df['id'].isin(proj)]
             print(df.state)
             for i, row in df.iterrows():
