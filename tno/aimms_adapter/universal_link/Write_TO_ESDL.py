@@ -110,7 +110,7 @@ class SQLESDL:
             for p in Producers:
                 p.power = float(dfProducers.loc[dfProducers["id"] == p.id].power)
         if hasattr(self, 'Producers'):
-            dfAssetProfiles = self.AssetProfiles
+            dfAssetProfiles = self.Results_AssetProfiles
             AssetProfiles = esh.get_all_instances_of_type(esdl.GenericProfile)
             for p in AssetProfiles:
                 if type(p) == esdl.InfluxDBProfile:
@@ -126,8 +126,10 @@ class SQLESDL:
         projname = []
         for i, row in df3.iterrows():
             Assetname = row.id_KPI.replace("TEACOS_Was_Optional_", '')
+            if Assetname[-4:-2]=="20":
+                Assetname=Assetname[:-4]
             projname.append(Assetname)
-            query = "SELECT * FROM " + self.database_name + ".Assets where `name` =  '" + Assetname.lstrip() + "';"
+            query = "SELECT * FROM " + self.database_name + ".Assets where `id` =  '" + Assetname.lstrip() + "';"
             AssetId = self.get_sql(query).id[0]
 
             changables = esh.get_by_id(AssetId)
